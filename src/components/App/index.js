@@ -5,15 +5,16 @@ import GlobalStyle from "../../globalStyles"
 
 import DataContext from "../context/context.js"
 
+import Header from "../Header"
 import Home from "../Home"
 
 export default function App() {
     return (
-        <DataContext.Provider value={{ data, setData }}>
+        <DataContext.Provider value="">
             <GlobalStyle />
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<Header />} />
                 </Routes>
             </BrowserRouter>
         </DataContext.Provider>
