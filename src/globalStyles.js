@@ -24,6 +24,10 @@ const GlobalStyle = createGlobalStyle`
   strong {
     font-weight: 700;
   }
+
+  em {
+    font-style: italic;
+  }
 `
 
 export default GlobalStyle
