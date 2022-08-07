@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     font-family: 'Montserrat', sans-serif;
-    background-color: #333333;
+    background-color: #121313;
     color: #ffffff;
   }
   input, textarea, button {
@@ -19,6 +19,10 @@ const GlobalStyle = createGlobalStyle`
   }
   button, a {
     cursor: pointer;
+  }
+
+  strong {
+    font-weight: 700;
   }
 `
 

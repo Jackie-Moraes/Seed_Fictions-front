@@ -1,15 +1,12 @@
 import { useState } from "react"
 import styled from "styled-components"
 import { GiMagnifyingGlass } from "react-icons/gi"
-import axios from "axios"
 
 import image from "../../assets/images/tree_logo.svg"
 import SearchBar from "./SearchBar"
 
 export default function Header() {
     const [search, setSearch] = useState(false)
-
-    function sendSearch() {}
 
     return (
         <Container>
@@ -37,7 +34,7 @@ export default function Header() {
 }
 
 const Container = styled.header`
-    width: 100vw;
+    width: 100%;
     height: 70px;
 
     display: flex;

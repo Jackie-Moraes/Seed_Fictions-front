@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import styled from "styled-components"
 import { DebounceInput } from "react-debounce-input"
 import axiosInstance from "../../instances/axiosInstances"

@@ -5,7 +5,6 @@ import GlobalStyle from "../../globalStyles"
 
 import DataContext from "../context/context.js"
 
-import Header from "../Header"
 import Home from "../Home"
 
 export default function App() {
@@ -14,7 +13,7 @@ export default function App() {
             <GlobalStyle />
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Header />} />
+                    <Route path="/" element={<Home />} />
                 </Routes>
             </BrowserRouter>
         </DataContext.Provider>
