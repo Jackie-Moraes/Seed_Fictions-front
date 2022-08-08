@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { useState } from "react"
 
 import "../../assets/styles/reset.css"
 import GlobalStyle from "../../globalStyles"
@@ -14,8 +15,10 @@ import SignUp from "../SignUp"
 import SignIn from "../SignIn"
 
 export default function App() {
+    const [data, setData] = useState({})
+
     return (
-        <DataContext.Provider value="">
+        <DataContext.Provider value={{ data, setData }}>
             <GlobalStyle />
             <BrowserRouter>
                 <Header />
@@ -27,6 +30,7 @@ export default function App() {
                         element={<Chapter />}
                     />
                     <Route path="/create-story" element={<CreateStory />} />
+                    <Route path="/create-chapter/:storyId" element="" />
                     <Route path="/sign-up" element={<SignUp />} />
                     <Route path="/sign-in" element={<SignIn />} />
                 </Routes>

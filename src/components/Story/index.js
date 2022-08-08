@@ -1,16 +1,22 @@
 import styled from "styled-components"
-import { useEffect, useState } from "react"
-import { useParams } from "react-router"
+import { useContext, useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router"
 import { AiFillWarning } from "react-icons/ai"
 
+import DataContext from "../context/context"
 import axiosInstance from "../../instances/axiosInstances"
+
 import image from "../../assets/images/tree_logo.svg"
 import ChapterCard from "./ChapterCard"
 
 export default function Story() {
+    const { data, setData } = useContext(DataContext)
+
     const [storyInfo, setStoryInfo] = useState("")
     const [chapters, setChapters] = useState("")
     const { storyId } = useParams()
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         const storyPromise = axiosInstance.get(`/stories/${storyId}`)
@@ -23,6 +29,8 @@ export default function Story() {
             setChapters(response.data)
         })
     }, [])
+
+    const author = storyInfo ? storyInfo.storiesUsers[0].user.id : ""
 
     return (
         <MainContaner>
@@ -111,6 +119,13 @@ export default function Story() {
             </ClearFix>
             <h3>Lista de Capítulos</h3>
             <ChaptersContainer>
+                {author === data.id ? (
+                    <button onClick={() => navigate("")}>
+                        Adicionar novo capítulo
+                    </button>
+                ) : (
+                    ""
+                )}
                 {chapters.length > 0
                     ? chapters.map((chapter, number) => {
                           return (
@@ -167,6 +182,15 @@ const MainContaner = styled.main`
         font-weight: 400;
         margin-bottom: 40px;
         text-align: center;
+    }
+
+    button {
+        width: 200px;
+        padding: 5px;
+        background-color: #742a40;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-bottom: 30px;
     }
 `
 

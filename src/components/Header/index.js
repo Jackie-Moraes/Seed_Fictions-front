@@ -1,17 +1,38 @@
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import { GiMagnifyingGlass } from "react-icons/gi"
 import { BsPersonCircle } from "react-icons/bs"
-
-import image from "../../assets/images/tree_logo.svg"
-import SearchBar from "./SearchBar"
 import { useNavigate } from "react-router"
 import { Link } from "react-router-dom"
 
+import DataContext from "../context/context"
+import axiosInstance from "../../instances/axiosInstances"
+
+import image from "../../assets/images/tree_logo.svg"
+import SearchBar from "./SearchBar"
+
 export default function Header() {
+    const { data, setData } = useContext(DataContext)
     const [search, setSearch] = useState(false)
 
     const navigate = useNavigate()
+
+    useEffect(() => {
+        const token = localStorage.getItem("token")
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+
+        axiosInstance
+            .get("/data", config)
+            .then((res) => {
+                setData(res.data)
+            })
+            .catch((err) => console.log(err))
+    }, [])
 
     return (
         <Container>

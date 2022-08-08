@@ -5,7 +5,7 @@ import { AiFillClockCircle } from "react-icons/ai"
 export default function ChapterCard({ chapter, number, storyId }) {
     const navigate = useNavigate()
     const date = new Date(chapter.createdAt)
-    console.log(date)
+
     return (
         <ChapterCardContainer
             onClick={() => navigate(`/story/${storyId}/chapter/${chapter.id}`)}
