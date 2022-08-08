@@ -11,8 +11,6 @@ export default function Chapter() {
     const [chapterInfo, setChapterInfo] = useState("")
     const { chapterId } = useParams()
 
-    const token = localStorage.getItem("token")
-
     useEffect(() => {
         const chaptersPromise = axiosInstance.get(`/chapter/${chapterId}`)
         chaptersPromise.then((response) => {
@@ -22,6 +20,8 @@ export default function Chapter() {
 
     function sendComment(e) {
         e.preventDefault()
+
+        const token = localStorage.getItem("token")
 
         const bodyData = {
             comment: commentValue,
@@ -59,11 +59,13 @@ export default function Chapter() {
             <NewCommentContainer>
                 <h3>Deixe seu comentário e apoie o autor.</h3>
                 <form onSubmit={sendComment}>
-                    <ReactQuill
-                        theme="snow"
+                    {/* ToDo - Usar Quill pro comentário */}
+                    <textarea
+                        type="text"
                         value={commentValue}
-                        onChange={setCommentValue}
-                    />
+                        placeholder="Seu comentário aqui."
+                        onChange={(e) => setCommentValue(e.target.value)}
+                    ></textarea>
 
                     <button className="align" type="submit">
                         Enviar comentário
@@ -189,6 +191,18 @@ const NewCommentContainer = styled.div`
         button {
             margin-top: 0px;
         }
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        padding: 6px 12px;
+
+        border: 1px solid #333;
+        color: white;
+        background-color: black;
+        margin-top: 10px;
+        border-radius: 10px;
     }
 `
 

@@ -80,7 +80,10 @@ export default function CreateStory() {
         e.preventDefault()
 
         const token = localStorage.getItem("token")
-        if (!token) return ""
+        if (!token) {
+            alert("Sua sessão expirou! Logue novamente.")
+            return navigate("/sign-in")
+        }
 
         const categoriesId = chosenCategories.map((category) => {
             return category.value
@@ -122,8 +125,6 @@ export default function CreateStory() {
             console.log(e.response.data)
         })
     }
-
-    console.log(descriptionValue)
 
     return (
         <MainContaner>

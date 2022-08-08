@@ -13,6 +13,7 @@ import Chapter from "../Chapter"
 import CreateStory from "../CreateStory"
 import SignUp from "../SignUp"
 import SignIn from "../SignIn"
+import CreateChapter from "../CreateChapter"
 
 export default function App() {
     const [data, setData] = useState({})
@@ -30,7 +31,10 @@ export default function App() {
                         element={<Chapter />}
                     />
                     <Route path="/create-story" element={<CreateStory />} />
-                    <Route path="/create-chapter/:storyId" element="" />
+                    <Route
+                        path="/create-chapter/:storyId"
+                        element={<CreateChapter />}
+                    />
                     <Route path="/sign-up" element={<SignUp />} />
                     <Route path="/sign-in" element={<SignIn />} />
                 </Routes>

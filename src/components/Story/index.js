@@ -120,7 +120,9 @@ export default function Story() {
             <h3>Lista de Capítulos</h3>
             <ChaptersContainer>
                 {author === data.id ? (
-                    <button onClick={() => navigate("")}>
+                    <button
+                        onClick={() => navigate(`/create-chapter/${storyId}`)}
+                    >
                         Adicionar novo capítulo
                     </button>
                 ) : (

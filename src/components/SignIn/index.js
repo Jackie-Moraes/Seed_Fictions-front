@@ -1,11 +1,13 @@
 import styled from "styled-components"
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
+import DataContext from "../context/context"
 import axiosInstance from "../../instances/axiosInstances"
 import image from "../../assets/images/tree_logo.svg"
 
 export default function SignIn() {
+    const { data, setData } = useContext(DataContext)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -26,6 +28,7 @@ export default function SignIn() {
             const { token } = response.data
             localStorage.setItem("token", token)
             navigate("/")
+            window.location.reload()
         })
     }
 
