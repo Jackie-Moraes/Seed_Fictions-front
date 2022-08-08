@@ -10,6 +10,8 @@ import Header from "../Header"
 import Story from "../Story"
 import Chapter from "../Chapter"
 import CreateStory from "../CreateStory"
+import SignUp from "../SignUp"
+import SignIn from "../SignIn"
 
 export default function App() {
     return (
@@ -25,6 +27,8 @@ export default function App() {
                         element={<Chapter />}
                     />
                     <Route path="/create-story" element={<CreateStory />} />
+                    <Route path="/sign-up" element={<SignUp />} />
+                    <Route path="/sign-in" element={<SignIn />} />
                 </Routes>
             </BrowserRouter>
         </DataContext.Provider>

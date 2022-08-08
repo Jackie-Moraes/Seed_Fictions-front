@@ -6,6 +6,7 @@ import { BsPersonCircle } from "react-icons/bs"
 import image from "../../assets/images/tree_logo.svg"
 import SearchBar from "./SearchBar"
 import { useNavigate } from "react-router"
+import { Link } from "react-router-dom"
 
 export default function Header() {
     const [search, setSearch] = useState(false)
@@ -15,16 +16,16 @@ export default function Header() {
     return (
         <Container>
             <TitleContainer title="Seed Fictions, onde a semente da sua ideia gera uma árvore de histórias.">
-                <a href="/">
+                <Link to="/">
                     <img
                         src={image}
                         alt="Logo da Seed Fictions, uma árvore brotando de um livro."
                     />
-                </a>
+                </Link>
 
-                <a href="/">
+                <Link to="/">
                     <span>Seed</span> Fictions
-                </a>
+                </Link>
             </TitleContainer>
 
             <SearchBar search={search} />
@@ -34,7 +35,7 @@ export default function Header() {
                 <BsPersonCircle
                     style={{ marginLeft: "20px" }}
                     onClick={() => {
-                        navigate("/sign-up")
+                        navigate("/sign-in")
                     }}
                 />
             </div>
