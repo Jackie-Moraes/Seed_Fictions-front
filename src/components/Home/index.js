@@ -1,5 +1,7 @@
 import styled from "styled-components"
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router"
+import { BsPlusCircle } from "react-icons/bs"
 
 import axiosInstance from "../../instances/axiosInstances"
 
@@ -7,6 +9,8 @@ import StoryCard from "../StoryCard"
 
 export default function Home() {
     const [stories, setStories] = useState([])
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         const promise = axiosInstance.get("/stories")
@@ -23,6 +27,11 @@ export default function Home() {
             <MainContaner>
                 <Title>
                     <h1>Descobrir</h1>
+
+                    <BsPlusCircle
+                        title="Enviar uma história"
+                        onClick={() => navigate("/create-story")}
+                    />
                 </Title>
 
                 <p style={{ marginBottom: "50px" }}>
@@ -45,7 +54,7 @@ const MainContaner = styled.main`
     background-color: black;
 
     padding: 10px 2%;
-    margin: 30px 10%;
+    margin: 100px 10%;
 
     p {
         margin-top: 25px;
@@ -60,6 +69,7 @@ const Title = styled.div`
     height: 50px;
 
     display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 0 15px;
 
@@ -67,5 +77,10 @@ const Title = styled.div`
         color: white;
         font-weight: 700;
         font-size: 22px;
+    }
+
+    svg {
+        font-size: 32px;
+        cursor: pointer;
     }
 `

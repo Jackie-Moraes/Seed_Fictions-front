@@ -9,6 +9,7 @@ import Home from "../Home"
 import Header from "../Header"
 import Story from "../Story"
 import Chapter from "../Chapter"
+import CreateStory from "../CreateStory"
 
 export default function App() {
     return (
@@ -23,6 +24,7 @@ export default function App() {
                         path="/story/:storyId/chapter/:chapterId"
                         element={<Chapter />}
                     />
+                    <Route path="/create-story" element={<CreateStory />} />
                 </Routes>
             </BrowserRouter>
         </DataContext.Provider>

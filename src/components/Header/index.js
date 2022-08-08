@@ -1,16 +1,20 @@
 import { useState } from "react"
 import styled from "styled-components"
 import { GiMagnifyingGlass } from "react-icons/gi"
+import { BsPersonCircle } from "react-icons/bs"
 
 import image from "../../assets/images/tree_logo.svg"
 import SearchBar from "./SearchBar"
+import { useNavigate } from "react-router"
 
 export default function Header() {
     const [search, setSearch] = useState(false)
 
+    const navigate = useNavigate()
+
     return (
         <Container>
-            <TitleContainer>
+            <TitleContainer title="Seed Fictions, onde a semente da sua ideia gera uma árvore de histórias.">
                 <a href="/">
                     <img
                         src={image}
@@ -25,10 +29,15 @@ export default function Header() {
 
             <SearchBar search={search} />
 
-            <GiMagnifyingGlass
-                style={{ fontSize: "28px", cursor: "pointer" }}
-                onClick={() => setSearch(!search)}
-            />
+            <div style={{ fontSize: "28px", cursor: "pointer" }}>
+                <GiMagnifyingGlass onClick={() => setSearch(!search)} />
+                <BsPersonCircle
+                    style={{ marginLeft: "20px" }}
+                    onClick={() => {
+                        navigate("/sign-up")
+                    }}
+                />
+            </div>
         </Container>
     )
 }
@@ -41,6 +50,9 @@ const Container = styled.header`
     justify-content: space-between;
     align-items: center;
     background-color: black;
+
+    position: fixed;
+    top: 0;
 
     padding: 0 30px;
 
