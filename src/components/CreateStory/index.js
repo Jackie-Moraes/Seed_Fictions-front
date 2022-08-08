@@ -13,6 +13,8 @@ export default function CreateStory() {
         }),
     }
 
+    const navigate = useNavigate()
+
     const [languages, setLanguages] = useState([])
     const [categories, setCategories] = useState([])
     const [genres, setGenres] = useState([])
@@ -42,7 +44,7 @@ export default function CreateStory() {
         return {
             label: category.name,
             options: category.subcategories.map((subCategory) => {
-                return { value: subCategory.name, label: subCategory.name }
+                return { value: subCategory.id, label: subCategory.name }
             }),
         }
     })
@@ -51,7 +53,7 @@ export default function CreateStory() {
         {
             label: "Idiomas",
             options: languages.map((language) => {
-                return { value: language.name, label: language.name }
+                return { value: language.id, label: language.name }
             }),
         },
     ]
@@ -60,7 +62,7 @@ export default function CreateStory() {
         {
             label: "Avisos",
             options: warnings.map((warning) => {
-                return { value: warning.name, label: warning.name }
+                return { value: warning.id, label: warning.name }
             }),
         },
     ]
@@ -69,14 +71,59 @@ export default function CreateStory() {
         {
             label: "Gêneros",
             options: genres.map((genre) => {
-                return { value: genre.name, label: genre.name }
+                return { value: genre.id, label: genre.name }
             }),
         },
     ]
 
     function sendStory(e) {
         e.preventDefault()
+
+        const token = localStorage.getItem("token")
+        if (!token) return ""
+
+        const categoriesId = chosenCategories.map((category) => {
+            return category.value
+        })
+
+        const warningsId = chosenWarnings.map((warning) => {
+            return warning.value
+        })
+
+        const genresId = chosenGenres.map((genre) => {
+            return genre.value
+        })
+
+        const tagsArr = tags.split(",")
+
+        const userBody = {
+            name: titleValue,
+            description: descriptionValue,
+            bannerURL: bannerValue,
+            languageId: chosenLanguage.value,
+            categoriesId,
+            warningsId,
+            genresId,
+            tags: tagsArr,
+        }
+
+        const userConfig = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+
+        const promise = axiosInstance.post("/stories", userBody, userConfig)
+        promise.then((response) => {
+            navigate(`/story/${response.data.storyId}`)
+        })
+
+        promise.catch((e) => {
+            console.log(e.response.data)
+        })
     }
+
+    console.log(descriptionValue)
 
     return (
         <MainContaner>
@@ -90,6 +137,7 @@ export default function CreateStory() {
                     <input
                         type="text"
                         required
+                        value={titleValue}
                         onChange={(e) => setTitleValue(e.target.value)}
                     ></input>
                 </section>
@@ -98,6 +146,7 @@ export default function CreateStory() {
                     <label>Imagem de Capa da História</label>
                     <input
                         type="url"
+                        value={bannerValue}
                         onChange={(e) => setBannerValue(e.target.value)}
                     ></input>
                 </section>
@@ -107,6 +156,7 @@ export default function CreateStory() {
                     <textarea
                         type="text"
                         required
+                        value={descriptionValue}
                         onChange={(e) => setDescriptionValue(e.target.value)}
                     ></textarea>
                 </section>
@@ -161,6 +211,7 @@ export default function CreateStory() {
                     </p>
                     <input
                         type="text"
+                        value={tags}
                         onChange={(e) => setTags(e.target.value)}
                     ></input>
                 </section>

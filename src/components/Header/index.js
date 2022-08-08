@@ -60,6 +60,8 @@ const Container = styled.header`
     span {
         font-weight: 600;
     }
+
+    z-index: 2;
 `
 
 const TitleContainer = styled.div`

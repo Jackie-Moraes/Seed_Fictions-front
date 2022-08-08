@@ -39,10 +39,12 @@ export default function StoryCard({ story }) {
             <span>
                 Categorias{" "}
                 <strong>
-                    {story.storiesCategories[0]?.subCategory.name}
-                    {story.storiesCategories.length > 1 ? ", " : ""}
-                    {story.storiesCategories.slice(1).map((category) => {
-                        return category.subCategory.name
+                    {story.storiesCategories.map((current, i) => {
+                        if (i === 0) {
+                            return current.subCategory.name
+                        } else {
+                            return `, ${current.subCategory.name}`
+                        }
                     })}
                 </strong>
             </span>

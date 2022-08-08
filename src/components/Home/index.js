@@ -18,7 +18,6 @@ export default function Home() {
             setStories(response.data)
         })
     }, [])
-    console.log(stories)
 
     // TO-DO: Pages
 
