@@ -195,7 +195,7 @@ const ImageContainer = styled.div`
     text-align: center;
 
     img {
-        max-width: 50%;
+        max-width: 35%;
     }
 `
 

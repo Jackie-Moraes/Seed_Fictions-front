@@ -48,6 +48,7 @@ export default function SignUp() {
                     placeholder="Nome de Usuário"
                     onChange={(e) => setName(e.target.value)}
                 ></input>
+
                 <input
                     required
                     type="email"
@@ -81,6 +82,7 @@ const MainContainer = styled.main`
 
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 
     input {
@@ -115,7 +117,7 @@ const MainContainer = styled.main`
     }
 
     form {
-        margin-top: 20px;
+        width: 30%;
     }
 `
 
@@ -127,6 +129,6 @@ const SignUpHeader = styled.div`
     margin-top: 50px;
 
     img {
-        width: 200px;
+        width: 230px;
     }
 `
