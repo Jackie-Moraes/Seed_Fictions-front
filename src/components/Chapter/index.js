@@ -9,14 +9,16 @@ import axiosInstance from "../../instances/axiosInstances"
 export default function Chapter() {
     const [commentValue, setCommentValue] = useState("")
     const [chapterInfo, setChapterInfo] = useState("")
+    const [refresher, setRefresher] = useState(0)
     const { chapterId } = useParams()
 
     useEffect(() => {
+        window.scrollTo(0, 0)
         const chaptersPromise = axiosInstance.get(`/chapter/${chapterId}`)
         chaptersPromise.then((response) => {
             setChapterInfo(response.data)
         })
-    }, [])
+    }, [refresher])
 
     function sendComment(e) {
         e.preventDefault()
@@ -41,6 +43,10 @@ export default function Chapter() {
 
         promise.catch((err) => {
             alert("Houve um erro ao publicar seu comentário.")
+        })
+
+        promise.then(() => {
+            setRefresher(refresher + 1)
         })
     }
 

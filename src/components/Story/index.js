@@ -19,6 +19,7 @@ export default function Story() {
     const navigate = useNavigate()
 
     useEffect(() => {
+        window.scrollTo(0, 0)
         const storyPromise = axiosInstance.get(`/stories/${storyId}`)
         storyPromise.then((response) => {
             setStoryInfo(response.data)
