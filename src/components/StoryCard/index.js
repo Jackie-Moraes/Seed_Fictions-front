@@ -7,9 +7,16 @@ import image from "../../assets/images/tree_logo.svg"
 export default function StoryCard({ story }) {
     const navigate = useNavigate()
 
+    const stage = story.isFinished
+
     return (
         <StoryCardContainer>
-            <StoryTitle onClick={() => navigate(`/story/${story.id}`)}>
+            <StoryTitle
+                onClick={() => {
+                    navigate(`/story/${story.id}`)
+                    window.scrollTo(0, 0)
+                }}
+            >
                 {story.name}
             </StoryTitle>
             <p>
@@ -22,7 +29,11 @@ export default function StoryCard({ story }) {
                 />
             </ImageContainer>
 
-            <label>{story.isFinished ? "Concluído" : "Em andamento"}</label>
+            {stage ? (
+                <StageContainer primary>Concluido</StageContainer>
+            ) : (
+                <StageContainer>Em andamento</StageContainer>
+            )}
             <br />
             <br />
 
@@ -86,14 +97,6 @@ const StoryCardContainer = styled.article`
     span {
         line-height: 24px;
     }
-
-    label {
-        background-color: ${(story) =>
-            story.isFinished ? "#742a40" : "#c9812d"};
-        border-radius: 10px;
-        font-size: 12px;
-        padding: 4px;
-    }
 `
 
 const StoryTitle = styled.h2`
@@ -120,4 +123,11 @@ const ClearFix = styled.div`
     padding: 8px;
 
     border: 1px solid #11171e;
+`
+
+const StageContainer = styled.label`
+    background-color: ${(props) => (props.primary ? "#742a40" : "#c9812d")};
+    border-radius: 10px;
+    font-size: 12px;
+    padding: 4px;
 `

@@ -8,7 +8,10 @@ export default function ChapterCard({ chapter, number, storyId }) {
 
     return (
         <ChapterCardContainer
-            onClick={() => navigate(`/story/${storyId}/chapter/${chapter.id}`)}
+            onClick={() => {
+                navigate(`/story/${storyId}/chapter/${chapter.id}`)
+                window.scrollTo(0, 0)
+            }}
         >
             <span style={{ fontSize: "20px", fontWeight: "700" }}>
                 {number}

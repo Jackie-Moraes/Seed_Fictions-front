@@ -16,7 +16,6 @@ export default function Chapter() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        window.scrollTo(0, 0)
         const chaptersPromise = axiosInstance.get(`/chapter/${chapterId}`)
         chaptersPromise.then((response) => {
             setChapterInfo(response.data)
