@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import ReactQuill from "react-quill"
+import parse from "html-react-parser"
 import styled from "styled-components"
 import "react-quill/dist/quill.snow.css"
 
@@ -11,6 +12,8 @@ export default function Chapter() {
     const [chapterInfo, setChapterInfo] = useState("")
     const [refresher, setRefresher] = useState(0)
     const { chapterId } = useParams()
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -24,6 +27,19 @@ export default function Chapter() {
         e.preventDefault()
 
         const token = localStorage.getItem("token")
+        if (!token) {
+            const confirmation = window.confirm(
+                `Você precisa estar logado para fazer isso. Deseja se logar?
+                
+Obs: O comentário digitado até o momento será perdido, salve antes de aceitar.`
+            )
+
+            if (confirmation) {
+                return navigate("/sign-in")
+            } else {
+                return ""
+            }
+        }
 
         const bodyData = {
             comment: commentValue,
@@ -46,6 +62,7 @@ export default function Chapter() {
         })
 
         promise.then(() => {
+            setCommentValue("")
             setRefresher(refresher + 1)
         })
     }
@@ -56,22 +73,22 @@ export default function Chapter() {
             <Title>
                 <h1>Capítulo - {chapterInfo.name}</h1>
             </Title>
-            <h3>Notas do Autor</h3>
+            <h4>Notas do Autor</h4>
             <span>{chapterInfo.startingNotes}</span>
-            <h3>Início do Capítulo</h3>
-            <span>{chapterInfo.content}</span>
-            <h3>Notas Finais</h3>
+            <h4>Início do Capítulo</h4>
+            {chapterInfo ? parse(chapterInfo.content) : ""}
+            <h4>Notas Finais</h4>
             <span>{chapterInfo.endingNotes}</span>
             <NewCommentContainer>
-                <h3>Deixe seu comentário e apoie o autor.</h3>
+                <h4>Deixe seu comentário e apoie o autor.</h4>
                 <form onSubmit={sendComment}>
                     {/* ToDo - Usar Quill pro comentário */}
-                    <textarea
-                        type="text"
+
+                    <ReactQuill
+                        theme="snow"
                         value={commentValue}
-                        placeholder="Seu comentário aqui."
-                        onChange={(e) => setCommentValue(e.target.value)}
-                    ></textarea>
+                        onChange={setCommentValue}
+                    />
 
                     <button className="align" type="submit">
                         Enviar comentário
@@ -79,10 +96,10 @@ export default function Chapter() {
                 </form>
             </NewCommentContainer>
             <CommentsContainer>
-                <h3>
+                <h4>
                     {chapterInfo ? chapterInfo.comments.length : "0"}{" "}
                     Comentários
-                </h3>
+                </h4>
 
                 {chapterInfo
                     ? chapterInfo.comments.map((comment) => {
@@ -105,7 +122,7 @@ export default function Chapter() {
                                               />
                                           </ProfilePictureContainer>
 
-                                          <span>{comment.content}</span>
+                                          {parse(comment.content)}
                                       </section>
                                   </CommentBox>
                               </CommentCard>
@@ -135,7 +152,7 @@ const MainContaner = styled.main`
         }
     }
 
-    h3 {
+    h4 {
         color: #fb95ae;
         margin-top: 30px;
         font-size: 22px;
@@ -143,7 +160,8 @@ const MainContaner = styled.main`
         margin-bottom: 25px;
     }
 
-    span {
+    span,
+    p {
         font-size: 15px;
         font-weight: 300;
     }
@@ -244,7 +262,7 @@ const CommentBox = styled.div`
         display: flex;
         margin-top: 15px;
 
-        span {
+        p {
             margin-left: 10px;
         }
     }
@@ -256,5 +274,6 @@ const ProfilePictureContainer = styled.div`
 
     img {
         max-width: 120px;
+        max-height: 120px;
     }
 `

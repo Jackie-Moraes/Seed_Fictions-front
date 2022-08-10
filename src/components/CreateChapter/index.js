@@ -82,12 +82,11 @@ export default function CreateChapter() {
                     <label style={{ marginBottom: "10px" }}>
                         Conteúdo do Capítulo
                     </label>
-                    {/* ToDo - Usar Quill pro conteúdo */}
-                    <input
-                        type="text"
+                    <ReactQuill
+                        theme="snow"
                         value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                    ></input>
+                        onChange={setContent}
+                    />
                 </section>
 
                 <section>

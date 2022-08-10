@@ -19,6 +19,23 @@ export default function Home() {
         })
     }, [])
 
+    function createStory() {
+        const token = localStorage.getItem("token")
+        if (!token) {
+            const confirmation = window.confirm(
+                "Você precisa estar logado para fazer isso. Deseja se logar?"
+            )
+
+            if (confirmation) {
+                return navigate("/sign-in")
+            } else {
+                return ""
+            }
+        }
+
+        return navigate("/create-story")
+    }
+
     // TO-DO: Pages
 
     return (
@@ -29,7 +46,7 @@ export default function Home() {
 
                     <BsPlusCircle
                         title="Enviar uma história"
-                        onClick={() => navigate("/create-story")}
+                        onClick={() => createStory()}
                     />
                 </Title>
 

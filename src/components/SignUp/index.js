@@ -31,7 +31,7 @@ export default function SignUp() {
         })
 
         promise.then(() => {
-            navigate("/sign-in")
+            navigate("/sign-in", { replace: true })
         })
     }
 
