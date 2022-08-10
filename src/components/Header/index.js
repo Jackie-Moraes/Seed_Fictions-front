@@ -89,6 +89,7 @@ export default function Header() {
                         onClick={() => {
                             localStorage.setItem("token", "")
                             setRefresher(refresher + 1)
+                            window.location.reload()
                         }}
                     />
                 ) : (
