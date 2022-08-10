@@ -145,17 +145,23 @@ export default function Story() {
                     </strong>
                 </span>
             </ClearFix>
-            <span>História Concluída</span>
-            <label class="switch">
-                <input
-                    type="checkbox"
-                    defaultChecked={storyInfo.isFinished}
-                    onChange={() => {
-                        updateStory()
-                    }}
-                />
-                <span class="slider round"></span>
-            </label>
+            {author === data.id ? (
+                <>
+                    <StoryFinishedContainer>
+                        <span>História Concluída</span>
+                        <label class="switch">
+                            <input
+                                type="checkbox"
+                                defaultChecked={storyInfo.isFinished}
+                                onChange={() => updateStory()}
+                            />
+                            <span class="slider round"></span>
+                        </label>
+                    </StoryFinishedContainer>
+                </>
+            ) : (
+                ""
+            )}
             <h3>Lista de Capítulos</h3>
             <ChaptersContainer>
                 {author === data.id ? (
@@ -233,8 +239,65 @@ const MainContaner = styled.main`
         cursor: pointer;
         margin-bottom: 30px;
     }
+`
+
+const Title = styled.div`
+    background-color: #742a40;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    margin: 30px 0px;
+
+    h1 {
+        color: white;
+        font-weight: 700;
+        font-size: 20px;
+    }
+`
+
+const ImageContainer = styled.div`
+    width: 100%;
+    max-width: 1000px;
+    max-height: 400px;
+    margin-top: 35px;
+
+    text-align: center;
+
+    img {
+        max-width: 35%;
+    }
+`
+
+const ClearFix = styled.div`
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    margin-top: 20px;
+    padding: 8px;
+
+    border: 3px solid #11171e;
+`
+
+const ChaptersContainer = styled.section`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+`
+
+const StoryFinishedContainer = styled.div`
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin-top: 35px;
 
     .switch {
+        margin-left: 20px;
         position: relative;
         display: inline-block;
         width: 60px;
@@ -295,53 +358,4 @@ const MainContaner = styled.main`
     .slider.round:before {
         border-radius: 50%;
     }
-`
-
-const Title = styled.div`
-    background-color: #742a40;
-    height: 50px;
-
-    display: flex;
-    align-items: center;
-    padding: 0 15px;
-    margin: 30px 0px;
-
-    h1 {
-        color: white;
-        font-weight: 700;
-        font-size: 20px;
-    }
-`
-
-const ImageContainer = styled.div`
-    width: 100%;
-    max-width: 1000px;
-    max-height: 400px;
-    margin-top: 35px;
-
-    text-align: center;
-
-    img {
-        max-width: 35%;
-    }
-`
-
-const ClearFix = styled.div`
-    width: 100%;
-
-    display: flex;
-    align-items: center;
-
-    margin-top: 20px;
-    padding: 8px;
-
-    border: 3px solid #11171e;
-`
-
-const ChaptersContainer = styled.section`
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
 `

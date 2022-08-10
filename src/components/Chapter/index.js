@@ -6,6 +6,7 @@ import styled from "styled-components"
 import "react-quill/dist/quill.snow.css"
 
 import axiosInstance from "../../instances/axiosInstances"
+import image from "../../assets/images/tree_logo.svg"
 
 export default function Chapter() {
     const [commentValue, setCommentValue] = useState("")
@@ -118,6 +119,13 @@ Obs: O comentário digitado até o momento será perdido, salve antes de aceitar
                                           <ProfilePictureContainer>
                                               <img
                                                   src={comment.user.pictureURL}
+                                                  onError={({
+                                                      currentTarget,
+                                                  }) => {
+                                                      currentTarget.onerror =
+                                                          null
+                                                      currentTarget.src = image
+                                                  }}
                                               />
                                           </ProfilePictureContainer>
 
@@ -263,6 +271,11 @@ const CommentBox = styled.div`
 
         p {
             margin-left: 10px;
+        }
+
+        a {
+            color: white;
+            font-size: 15px;
         }
     }
 `

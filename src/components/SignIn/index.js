@@ -27,10 +27,8 @@ export default function SignIn() {
         promise.then((response) => {
             const { token } = response.data
             localStorage.setItem("token", token)
-            window.location.reload()
+            navigate(-1, { replace: true })
         })
-
-        navigate(-1, { replace: true })
     }
 
     return (

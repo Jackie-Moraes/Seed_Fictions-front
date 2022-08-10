@@ -153,10 +153,13 @@ export default function CreateStory() {
                 </section>
 
                 <section>
-                    <label>Sinopse da História</label>
+                    <label>Sinopse da História </label>
+                    <br />
+                    <small>(Mínimo de 30 caracteres)</small>
                     <textarea
                         type="text"
                         required
+                        minLength="30"
                         value={descriptionValue}
                         onChange={(e) => setDescriptionValue(e.target.value)}
                     ></textarea>
@@ -260,6 +263,11 @@ const MainContaner = styled.main`
 
         div {
             color: black;
+        }
+
+        small {
+            font-size: 10px;
+            margin: 0 5px;
         }
     }
 
